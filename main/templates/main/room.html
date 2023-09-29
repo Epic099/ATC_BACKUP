@@ -1,0 +1,71 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% block head%}
+<link type="text/css" rel="stylesheet" href="{%  static 'styles/room.css'%}">
+{% endblock %}
+
+{% block content %}
+
+<div id="headerdiv">
+<h1>{{room}}</h1>
+<h2>{{icao}}</h2>
+  <ul class="objects-list">
+{% for object in in_aircrafts %}
+<li>
+    <div class="aircraft-inbound">
+    <input class="aircraft-callsign" type="text" placeholder="Callsign" value="{{object.Callsign}}" />
+    <button class="button-inbound">Inbound</button>
+    <br><br>
+  <div style="line-height: 2;">  
+    <input class="aircraft-small" type="text" placeholder="Dep" value="{{object.Departure}}">
+    <input class="aircraft-medium" type="text" placeholder="Aircraft" value="{{object.AircraftType}}">
+    <input class="aircraft-medium" type="text" placeholder="Altitude" value="{{object.Altitude}}">
+    <input class="aircraft-small" type="text" placeholder="Gate" value="{{object.Gate}}">
+    <br>
+    <input class="aircraft-small" type="text" placeholder="Arr" value="{{object.Arrival}}">
+    <input class="aircraft-medium" type="text" placeholder="Runway" value="{{object.Runway}}">
+    <input class="aircraft-medium" type="text" placeholder="Squawk" value="{{object.Squawk}}">
+    <input class="aircraft-small" type="text" placeholder="Info" value="{{object.Info}}">
+    <br>
+    <input class="aircraft-big" type="text" placeholder="Taxi instructions" {% if object.Add_Info != "['0']" %} value="{{object.Taxi}}" {% endif %}>
+    <br><br>
+    <input class="aircraft-big" type="text" placeholder="Additional Infos" {% if object.Add_Info != "N/A" %} value="{{object.Add_Info}}" {% endif %}>
+  </div>
+  </div>
+
+</li>
+{% endfor %}
+</ul>
+<ul class="objects-list2">
+{% for object in out_aircrafts %}
+<li>
+    <div class="aircraft-outbound">
+    <input class="aircraft-callsign" type="text" placeholder="Callsign" value="{{object.Callsign}}" />
+    <button class="button-outbound">Outbound</button>
+    <br><br>
+  <div style="line-height: 2;">  
+    <input class="aircraft-small" type="text" placeholder="Dep" value="{{object.Departure}}">
+    <input class="aircraft-medium" type="text" placeholder="Aircraft" value="{{object.AircraftType}}">
+    <input class="aircraft-medium" type="text" placeholder="Altitude" value="{{object.Altitude}}">
+    <input class="aircraft-small" type="text" placeholder="Gate" value="{{object.Gate}}">
+    <br>
+    <input class="aircraft-small" type="text" placeholder="Arr" value="{{object.Arrival}}">
+    <input class="aircraft-medium" type="text" placeholder="Runway" value="{{object.Runway}}">
+    <input class="aircraft-medium" type="text" placeholder="Squawk" value="{{object.Squawk}}">
+    <input class="aircraft-small" type="text" placeholder="Info" value="{{object.Info}}">
+    <br>
+    <input class="aircraft-big" type="text" placeholder="Taxi instructions" {% if object.Add_Info != "['0']" %} value="{{object.Taxi}}" {% endif %}>
+    <br><br>
+    <input class="aircraft-big" type="text" placeholder="Additional Infos" {% if object.Add_Info != "N/A" %} value="{{object.Add_Info}}" {% endif %}>
+  </div>
+  </div>
+
+</li>
+{% endfor %}
+</ul>
+</div>
+{% endblock %}
+{% block scripts %}
+  <script src="{% static 'js/atc.js' %}"></script>
+{% endblock %}
+
