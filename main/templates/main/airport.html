@@ -1,0 +1,24 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% block head%}
+    <link type="text/css" rel="stylesheet" href="{%  static 'styles/airport.css'%}">
+{% endblock %}
+{% block content %}
+
+<h2>{{ICAO}} {{Callsign}}</h2>
+<!-- <div class="charts">
+    <div class="ground-charts">
+        {% for chart in Ground_Charts %}
+            <img width="706" height="100%" src="{% static chart %}">
+        {% endfor %}
+    </div>
+    <!--<div class="airway-charts">
+        {% for chart in Airway_Charts %}
+            <img width="50%" height="100%" src="{% static chart %}">
+        {% endfor %} 
+    </div>
+</div>-->
+
+<label class="output">Test</label>
+<script src="{% static 'js/atc.js' %}"></script>
+{% endblock content %}

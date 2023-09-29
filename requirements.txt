@@ -1,0 +1,6 @@
+Django
+daphne
+channels
+django-crispy-forms
+django-bootstrap5
+crispy-bootstrap5

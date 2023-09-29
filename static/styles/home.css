@@ -1,0 +1,10 @@
+body {
+    background: url("/static/images/home_background.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+#headerdiv {
+    position: fixed;
+    text-align: center;
+    margin-left: 800px;
+}

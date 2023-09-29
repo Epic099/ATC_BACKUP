@@ -1,0 +1,18 @@
+{% extends "main/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="horizontal-central">
+    <h3>Choose Airport</h3>
+    <form method="post">
+        {% csrf_token %}{{form|crispy}}
+        <button type="submit" class="btn btn-success">Select</button>
+    </form>
+  <br><br>
+    <h3>Create Room</h3>
+      <form method="post">
+        {% csrf_token %}{{form2|crispy}}
+        <button type="submit" class="btn btn-success">Create Room</button>
+    </form>
+</div>
+{% endblock content %}
