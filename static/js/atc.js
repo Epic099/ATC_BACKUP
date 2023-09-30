@@ -27,14 +27,45 @@ list.addEventListener('click', function(event) {
     input.value = value;
 });*/
 
-let url = 'wss://' + window.location.host + '/ws/socket-server/';
+const RoomName = document.getElementById('my-element').dataset.name;
+
+let url = 'wss://' + window.location.host + '/ws/' + RoomName.toString() + '/' ;
 const socket = new WebSocket(url);
 
 socket.onmessage = function(e){
     let data = JSON.parse(e.data);
-    console.log('Data: ', data);
+    if (data["type"] != "edit")
+    {
+      console.log(data["message"]);
+      return;
+    }
+    let changed = data["changed_attribute"]
+    let aircraftli = document.getElementById(data["callsign"])
+    let inp = document.getElementById(data["callsign"] + "-" + changed)
+    inp.value = data["value"]
 }
 
-/*setTimeout(function(e) {
-    websocket.send(JSON.stringify({"message" : message}))
-}, 2000);*/
+function focusout(id)
+{
+  var strs = id.split(/[-]+/);
+  var callsign = strs[0];
+  var changed = strs[1];
+  var value = document.getElementById(id).value;
+  socket.send(JSON.stringify({"callsign" : callsign, "changed_attribute" : changed, "value" : value, "type" : "", "message" : ""}))
+}
+
+socket.onerror = function(e)
+{
+  console.log(e);
+}
+
+socket.onopen = function(e){
+  //socket.send(JSON.stringify({"callsign" : "Lufthansa 1543", "changed_attribute" : "Departure","value" : "IRFD" , "type" : "", "message" : ""}));
+  //socket.send(JSON.stringify({"callsign" : "Lufthansa 1543", "changed_attribute" : "Departure","value" : "IRFD" , "type" : "", "message" : ""}));
+  //socket.send(JSON.stringify({"callsign" : "Lufthansa 1543", "changed_attribute" : "Arrival","value" : "ITKO" , "type" : "", "message" : ""}));
+  //socket.send(JSON.stringify({'room' : RoomName, 'message' : 'Testing Stuff Cool!'}));
+}
+
+socket.onclose = function(e){
+  console.log(e);
+}
