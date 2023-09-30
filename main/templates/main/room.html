@@ -3,7 +3,9 @@
 {% block head%}
 <link type="text/css" rel="stylesheet" href="{%  static 'styles/room.css'%}">
 {% endblock %}
-
+{% block scripts %}
+  <script src="{% static 'js/atc.js' %}"></script>
+{% endblock %}
 {% block content %}
 
 <div id="headerdiv">
@@ -11,25 +13,25 @@
 <h2>{{icao}}</h2>
   <ul class="objects-list">
 {% for object in in_aircrafts %}
-<li>
+<li id="{{object.Callsign}}">
     <div class="aircraft-inbound">
-    <input class="aircraft-callsign" type="text" placeholder="Callsign" value="{{object.Callsign}}" />
+    <input class="aircraft-callsign" type="text" id="{{object.Callsign}}-Callsign" placeholder="Callsign" value="{{object.Callsign}}" onfocusout="focusout(this.id)" />
     <button class="button-inbound">Inbound</button>
     <br><br>
   <div style="line-height: 2;">  
-    <input class="aircraft-small" type="text" placeholder="Dep" value="{{object.Departure}}">
-    <input class="aircraft-medium" type="text" placeholder="Aircraft" value="{{object.AircraftType}}">
-    <input class="aircraft-medium" type="text" placeholder="Altitude" value="{{object.Altitude}}">
-    <input class="aircraft-small" type="text" placeholder="Gate" value="{{object.Gate}}">
+    <input class="aircraft-small" type="text" id="{{object.Callsign}}-Departure" placeholder="Dep" value="{{object.Departure}}"onfocusout="focusout(this.id)">
+    <input class="aircraft-medium" type="text" id="{{object.Callsign}}-AircraftType" placeholder="Aircraft" value="{{object.AircraftType}}"onfocusout="focusout(this.id)">
+    <input class="aircraft-medium" type="text" id="{{object.Callsign}}-Altitude" placeholder="Altitude" value="{{object.Altitude}}"onfocusout="focusout(this.id)">
+    <input class="aircraft-medium" type="text" id="{{object.Callsign}}-Gate" placeholder="Gate" value="{{object.Gate}}"onfocusout="focusout(this.id)">
     <br>
-    <input class="aircraft-small" type="text" placeholder="Arr" value="{{object.Arrival}}">
-    <input class="aircraft-medium" type="text" placeholder="Runway" value="{{object.Runway}}">
-    <input class="aircraft-medium" type="text" placeholder="Squawk" value="{{object.Squawk}}">
-    <input class="aircraft-small" type="text" placeholder="Info" value="{{object.Info}}">
+    <input class="aircraft-small" type="text" id="{{object.Callsign}}-Arrival" placeholder="Arr" value="{{object.Arrival}}"onfocusout="focusout(this.id)">
+    <input class="aircraft-medium" type="text" id="{{object.Callsign}}-Runway" placeholder="Runway" value="{{object.Runway}}"onfocusout="focusout(this.id)">
+    <input class="aircraft-medium" type="text" id="{{object.Callsign}}-Squawk" placeholder="Squawk" value="{{object.Squawk}}"onfocusout="focusout(this.id)">
+    <input class="aircraft-medium" type="text" id="{{object.Callsign}}-Info" placeholder="Info" value="{{object.Info}}">
     <br>
-    <input class="aircraft-big" type="text" placeholder="Taxi instructions" {% if object.Add_Info != "['0']" %} value="{{object.Taxi}}" {% endif %}>
+    <input class="aircraft-big" type="text" id="{{object.Callsign}}-Taxi" placeholder="Taxi instructions" onfocusout="focusout(this.id)" {% if object.Add_Info != "['0']" %} value="{{object.Taxi}}" {% endif %}>
     <br><br>
-    <input class="aircraft-big" type="text" placeholder="Additional Infos" {% if object.Add_Info != "N/A" %} value="{{object.Add_Info}}" {% endif %}>
+    <input class="aircraft-big" type="text" id="{{object.Callsign}}-Add_Infos" placeholder="Additional Infos" onfocusout="focusout(this.id)" {% if object.Add_Info != "N/A" %} value="{{object.Add_Info}}" {% endif %}>
   </div>
   </div>
 
@@ -38,25 +40,25 @@
 </ul>
 <ul class="objects-list2">
 {% for object in out_aircrafts %}
-<li>
+<li id="{{object.Callsign}}">
     <div class="aircraft-outbound">
-    <input class="aircraft-callsign" type="text" placeholder="Callsign" value="{{object.Callsign}}" />
+    <input class="aircraft-callsign" type="text" id="{{object.Callsign}}-Callsign" placeholder="Callsign" value="{{object.Callsign}}" onfocusout="focusout(this.id)"/>
     <button class="button-outbound">Outbound</button>
     <br><br>
   <div style="line-height: 2;">  
-    <input class="aircraft-small" type="text" placeholder="Dep" value="{{object.Departure}}">
-    <input class="aircraft-medium" type="text" placeholder="Aircraft" value="{{object.AircraftType}}">
-    <input class="aircraft-medium" type="text" placeholder="Altitude" value="{{object.Altitude}}">
-    <input class="aircraft-small" type="text" placeholder="Gate" value="{{object.Gate}}">
+    <input class="aircraft-small" type="text" id="{{object.Callsign}}-Departure" placeholder="Dep" value="{{object.Departure}}"onfocusout="focusout(this.id)">
+    <input class="aircraft-medium" type="text" id="{{object.Callsign}}-AircraftType" placeholder="Aircraft" value="{{object.AircraftType}}"onfocusout="focusout(this.id)">
+    <input class="aircraft-medium" type="text" id="{{object.Callsign}}-Altitude" placeholder="Altitude" value="{{object.Altitude}}"onfocusout="focusout(this.id)">
+    <input class="aircraft-medium" type="text" id="{{object.Callsign}}-Gate" placeholder="Gate" value="{{object.Gate}}"onfocusout="focusout(this.id)">
     <br>
-    <input class="aircraft-small" type="text" placeholder="Arr" value="{{object.Arrival}}">
-    <input class="aircraft-medium" type="text" placeholder="Runway" value="{{object.Runway}}">
-    <input class="aircraft-medium" type="text" placeholder="Squawk" value="{{object.Squawk}}">
-    <input class="aircraft-small" type="text" placeholder="Info" value="{{object.Info}}">
+    <input class="aircraft-small" type="text" id="{{object.Callsign}}-Arrival" placeholder="Arr" value="{{object.Arrival}}"onfocusout="focusout(this.id)">
+    <input class="aircraft-medium" type="text" id="{{object.Callsign}}-Runway" placeholder="Runway" value="{{object.Runway}}"onfocusout="focusout(this.id)">
+    <input class="aircraft-medium" type="text" id="{{object.Callsign}}-Squawk" placeholder="Squawk" value="{{object.Squawk}}"onfocusout="focusout(this.id)">
+    <input class="aircraft-medium" type="text" id="{{object.Callsign}}-Info" placeholder="Info" value="{{object.Info}}"onfocusout="focusout(this.id)">
     <br>
-    <input class="aircraft-big" type="text" placeholder="Taxi instructions" {% if object.Add_Info != "['0']" %} value="{{object.Taxi}}" {% endif %}>
+    <input class="aircraft-big" type="text" id="{{object.Callsign}}-Taxi" placeholder="Taxi instructions" onfocusout="focusout(this.id)" {% if object.Add_Info != "['0']" %} value="{{object.Taxi}}" {% endif %}>
     <br><br>
-    <input class="aircraft-big" type="text" placeholder="Additional Infos" {% if object.Add_Info != "N/A" %} value="{{object.Add_Info}}" {% endif %}>
+    <input class="aircraft-big" type="text" id="{{object.Callsign}}-Add_Infos" placeholder="Additional Infos" onfocusout="focusout(this.id)" {% if object.Add_Info != "N/A" %} value="{{object.Add_Info}}" {% endif %}>
   </div>
   </div>
 
@@ -64,8 +66,7 @@
 {% endfor %}
 </ul>
 </div>
+<div id="my-element" data-name="{{ room }}"></div>
 {% endblock %}
-{% block scripts %}
-  <script src="{% static 'js/atc.js' %}"></script>
-{% endblock %}
+
 

@@ -9,11 +9,7 @@ import urllib.parse
 import os
 
 def valid_room(room_name):
-  rooms = Room.objects.all()
-  for r in rooms:
-    if str(r.name) == str(room_name):
-      return True
-  return False
+  return Room.objects.filter(name=room_name).exists()
 
 client = Client()
 
@@ -27,9 +23,7 @@ def atc(request):
         if form.is_valid():
             rooms = Room.objects.all()
             r = form.cleaned_data["room"]
-            print(valid_room(r))
             if valid_room(r):
-              print(r)
               return redirect(f"atc/{r}")
             else:
               return redirect("atc")
